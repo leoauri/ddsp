@@ -39,6 +39,7 @@ class Decoder(tfkl.Layer):
 
   def call(self, conditioning):
     """Updates conditioning with dictionary of decoder outputs."""
+    conditioning = conditioning.copy()
     x = self.decode(conditioning)
     outputs = nn.split_to_dict(x, self.output_splits)
 

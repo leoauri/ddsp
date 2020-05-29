@@ -114,8 +114,10 @@ class Autoencoder(Model):
     processor_inputs = self.decoder(conditioning, training=training)
     return self.processor_group(processor_inputs)
 
+  @tf.function
   def call(self, features, training=True):
     """Run the core of the network, get predictions and loss."""
+    features = features.copy()
     conditioning = self.encode(features, training=training)
     audio_gen = self.decode(conditioning, training=training)
     if training:
